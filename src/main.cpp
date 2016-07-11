@@ -66,40 +66,59 @@ int main()
     //YARP device
     robConfig << "device remote_controlboard" << " ";
     //To what will be connected
-    robConfig << "remote /teo/rightArm" << " ";
+    robConfig << "remote /teo/rightLeg" << " ";
     //How will be called on YARP network
-    robConfig << "local /local/rightArm/" << " ";
-    MWI::Robot rightArm(robConfig);
+    robConfig << "local /local/rightLeg/" << " ";
+    MWI::Robot rightLeg(robConfig);
 
 
-    double jointPos;
-    rightArm.GetJoint(3,jointPos);
-    std::cout << "raj4: " << jointPos  <<std::endl;
+    double jointPos=rightLeg.GetJoint(2);
+    double jointVel;
+
+    std::cout << "jointPos: " << jointPos  <<std::endl;
 
 
 
 
-    double T=0.5;
-    int loops = 6/T;
-    double vel = -2;
-    int jointNumber = 3;
+    double T=0.01;
+    int loops = 2/T;
+    double vel = 1.1;
+    int jointNumber = 2;
 
-    double lastJointPos;
-    rightArm.GetJoint(jointNumber,lastJointPos);
+    double lastJointPos = rightLeg.GetJoint(jointNumber);
 
-    double actualVel;
-    rightArm.SetJointVel(jointNumber, vel);
+    //rightLeg.SetJointVel(jointNumber, -vel);
 
+    rightLeg.SetJointPos(jointNumber,-10);
 
     for(int i=0; i<loops; i++)
     {
-        rightArm.GetJoint(jointNumber,jointPos);
+        jointPos=rightLeg.GetJoint(jointNumber);
+        jointVel=rightLeg.GetJointVelocity(jointNumber);
 
-        actualVel = (jointPos-lastJointPos)/T;
-        gdata << T << ","
+        std::cout << T << ","
               << vel << ","
-              << actualVel << ","
               << jointPos << ","
+              << jointVel << ","
+              << std::endl;
+        //std::cout << command << "" << std::endl;
+
+        lastJointPos = jointPos;
+        yarp::os::Time::delay(T);
+
+
+    }
+
+    //rightLeg.SetJointVel(jointNumber, vel);
+
+    for(int i=0; i<loops; i++)
+    {
+        jointPos=rightLeg.GetJoint(jointNumber);
+        jointVel=rightLeg.GetJointVelocity(jointNumber);
+        std::cout << T << ","
+              << vel << ","
+              << jointPos << ","
+              << jointVel << ","
               << std::endl;
         //std::cout << command << "" << std::endl;
 
@@ -109,10 +128,9 @@ int main()
 
     }
     //step =0;
-    rightArm.SetJointVel(jointNumber, 0);
+    rightLeg.SetJointVel(jointNumber, 0);
 
 
-    gdata.close();
 
 
 
