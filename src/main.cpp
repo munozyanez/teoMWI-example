@@ -66,13 +66,13 @@ int main()
     //YARP device
     robConfig << "device remote_controlboard" << " ";
     //To what will be connected
-    robConfig << "remote /teo/rightLeg" << " ";
+    robConfig << "remote /teo/rightArm" << " ";
     //How will be called on YARP network
-    robConfig << "local /local/rightLeg/" << " ";
-    MWI::Robot rightLeg(robConfig);
+    robConfig << "local /local/rightArm/" << " ";
+    MWI::Robot rightArm(robConfig);
 
 
-    double jointPos=rightLeg.GetJoint(2);
+    double jointPos=rightArm.GetJoint(2);
     double jointVel;
 
     std::cout << "jointPos: " << jointPos  <<std::endl;
@@ -83,18 +83,18 @@ int main()
     double T=0.01;
     int loops = 2/T;
     double vel = 1.1;
-    int jointNumber = 2;
+    int jointNumber = 3;
 
-    double lastJointPos = rightLeg.GetJoint(jointNumber);
+    double lastJointPos = rightArm.GetJoint(jointNumber);
 
-    //rightLeg.SetJointVel(jointNumber, -vel);
+    //rightArm.SetJointVel(jointNumber, -vel);
 
-    rightLeg.SetJointPos(jointNumber,-10);
+    rightArm.SetJointPos(jointNumber,0);
 
     for(int i=0; i<loops; i++)
     {
-        jointPos=rightLeg.GetJoint(jointNumber);
-        jointVel=rightLeg.GetJointVelocity(jointNumber);
+        jointPos=rightArm.GetJoint(jointNumber);
+        jointVel=rightArm.GetJointVelocity(jointNumber);
 
         std::cout << T << ","
               << vel << ","
@@ -109,12 +109,12 @@ int main()
 
     }
 
-    //rightLeg.SetJointVel(jointNumber, vel);
+    //rightArm.SetJointVel(jointNumber, vel);
 
     for(int i=0; i<loops; i++)
     {
-        jointPos=rightLeg.GetJoint(jointNumber);
-        jointVel=rightLeg.GetJointVelocity(jointNumber);
+        jointPos=rightArm.GetJoint(jointNumber);
+        jointVel=rightArm.GetJointVelocity(jointNumber);
         std::cout << T << ","
               << vel << ","
               << jointPos << ","
@@ -128,7 +128,7 @@ int main()
 
     }
     //step =0;
-    rightLeg.SetJointVel(jointNumber, 0);
+    rightArm.SetJointVel(jointNumber, 0);
 
 
 
