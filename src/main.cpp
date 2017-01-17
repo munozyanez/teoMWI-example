@@ -87,7 +87,7 @@ int main()
 
     double lastJointPos = rightArm.GetJoint(jointNumber);
 
-    //rightArm.SetJointVel(jointNumber, -vel);
+    rightArm.SetJointVel(jointNumber, vel);
 
     rightArm.SetJointPos(jointNumber,0);
 
@@ -109,7 +109,7 @@ int main()
 
     }
 
-    //rightArm.SetJointVel(jointNumber, vel);
+    rightArm.SetJointVel(jointNumber, -vel);
 
     for(int i=0; i<loops; i++)
     {
