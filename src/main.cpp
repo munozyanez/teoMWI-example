@@ -73,6 +73,7 @@ int main()
 
 
     double jointPos=rightArm.GetJoint(2);
+    std::vector<double> jointPositions;
     double jointVel;
 
     std::cout << "jointPos: " << jointPos  <<std::endl;
@@ -82,7 +83,7 @@ int main()
 
     double T=0.01;
     int loops = 2/T;
-    double vel = 1.1;
+    double vel = 1;
     int jointNumber = 2;
 
     double lastJointPos = rightArm.GetJoint(jointNumber);
@@ -93,7 +94,8 @@ int main()
 
     for(int i=0; i<loops; i++)
     {
-        jointPos=rightArm.GetJoint(jointNumber);
+        rightArm.GetJoints(jointPositions);
+        jointPos=jointPositions[jointNumber];
         jointVel=rightArm.GetJointVelocity(jointNumber);
 
         std::cout << T << ","
@@ -113,7 +115,8 @@ int main()
 
     for(int i=0; i<loops; i++)
     {
-        jointPos=rightArm.GetJoint(jointNumber);
+        rightArm.GetJoints(jointPositions);
+        jointPos=jointPositions[jointNumber];
         jointVel=rightArm.GetJointVelocity(jointNumber);
         std::cout << T << ","
               << vel << ","
