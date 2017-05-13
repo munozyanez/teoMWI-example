@@ -61,12 +61,16 @@ int main()
 
     std::cout << "vector" << imuAccel[0] << imuAccel[1] << imuAccel[2] <<std::endl;
 
-    //Robot teo right arm
-
     MWI::Robot rightArm("teoSim","rightArm");
+    if (rightArm.GetError()!=0)
+    {
+        std::cout << "MWI::Robot rightArm(\"teoSim\",\"rightArm\") not available. ERROR: " << rightArm.GetError() << std::endl;
+        return -1;
 
-
+    }
     rightArm.SetControlMode(2);
+
+
     double jointPos=rightArm.GetJoint(2);
     std::vector<double> jointPositions;
     double jointVel;
@@ -83,9 +87,8 @@ int main()
 
     double lastJointPos = rightArm.GetJoint(jointNumber);
 
+    rightArm.SetControlMode(2);
     rightArm.SetJointVel(jointNumber, vel);
-
-    rightArm.SetJointPos(jointNumber,0);
 
     for(int i=0; i<loops; i++)
     {
