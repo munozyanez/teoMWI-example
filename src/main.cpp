@@ -62,16 +62,11 @@ int main()
     std::cout << "vector" << imuAccel[0] << imuAccel[1] << imuAccel[2] <<std::endl;
 
     //Robot teo right arm
-    std::stringstream robConfig;
-    //YARP device
-    robConfig << "device remote_controlboard" << " ";
-    //To what will be connected
-    robConfig << "remote /teo/rightArm" << " ";
-    //How will be called on YARP network
-    robConfig << "local /local/rightArm/" << " ";
-    MWI::Robot rightArm(robConfig);
+
+    MWI::Robot rightArm("teoSim","rightArm");
 
 
+    rightArm.SetControlMode(2);
     double jointPos=rightArm.GetJoint(2);
     std::vector<double> jointPositions;
     double jointVel;
@@ -83,8 +78,8 @@ int main()
 
     double T=0.01;
     int loops = 2/T;
-    double vel = 2;
-    int jointNumber = 2;
+    double vel = 4;
+    int jointNumber = 3;
 
     double lastJointPos = rightArm.GetJoint(jointNumber);
 
