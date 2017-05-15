@@ -64,11 +64,11 @@ int main()
     MWI::Robot rightArm("teo","rightArm");
     if (rightArm.GetError()!=0)
     {
-        std::cout << "MWI::Robot rightArm(\"teoSim\",\"rightArm\") not available. ERROR: " << rightArm.GetError() << std::endl;
+        std::cout << "MWI::Robot not available. ERROR: " << rightArm.GetError() << std::endl;
         return -1;
 
     }
-    rightArm.SetControlMode(2);
+
 
 
     double jointPos=rightArm.GetJoint(2);
@@ -131,6 +131,10 @@ int main()
     //step =0;
     rightArm.SetJointVel(jointNumber, 0);
 
+    rightArm.SetControlMode(1);
+    rightArm.SetJointPos(jointNumber,60);
+    yarp::os::Time::delay(3);
+    rightArm.SetControlMode(2);
 
     for(int i=0; i<30; i++)
     {
@@ -146,19 +150,19 @@ int main()
 
     }
 
-    for(int i=0; i<30; i++)
-    {
-        vel=(double)i/10;
-        rightArm.SetControlMode(2);
-        rightArm.SetJointVel(jointNumber, -vel);
+//    for(int i=0; i<30; i++)
+//    {
+//        vel=(double)i/10;
+//        rightArm.SetControlMode(2);
+//        rightArm.SetJointVel(jointNumber, -vel);
 
-        std::cout << i << ","
-              << "vel: "<< vel << ","
-              << "pos: "<< rightArm.GetJoint(jointNumber) << ","
-              << std::endl;
-        yarp::os::Time::delay(0.2);
+//        std::cout << i << ","
+//              << "vel: "<< vel << ","
+//              << "pos: "<< rightArm.GetJoint(jointNumber) << ","
+//              << std::endl;
+//        yarp::os::Time::delay(0.2);
 
-    }
+//    }
     rightArm.SetJointVel(jointNumber, 0);
 
     return 0;
