@@ -61,7 +61,7 @@ int main()
 
     std::cout << "vector" << imuAccel[0] << imuAccel[1] << imuAccel[2] <<std::endl;
 
-    MWI::Robot rightArm("teoSim","rightArm");
+    MWI::Robot rightArm("teo","rightArm");
     if (rightArm.GetError()!=0)
     {
         std::cout << "MWI::Robot rightArm(\"teoSim\",\"rightArm\") not available. ERROR: " << rightArm.GetError() << std::endl;
@@ -132,8 +132,32 @@ int main()
     rightArm.SetJointVel(jointNumber, 0);
 
 
+    for(int i=0; i<20; i++)
+    {
+        vel=(double)i/10;
+        rightArm.SetJointVel(jointNumber, vel);
 
+        std::cout << i << ","
+              << "vel: "<< vel << ","
+              << "pos: "<< rightArm.GetJoint(jointNumber) << ","
+              << std::endl;
+        yarp::os::Time::delay(0.3);
 
+    }
+
+    for(int i=0; i<20; i++)
+    {
+        vel=(double)i/10;
+        rightArm.SetJointVel(jointNumber, -vel);
+
+        std::cout << i << ","
+              << "vel: "<< vel << ","
+              << "pos: "<< rightArm.GetJoint(jointNumber) << ","
+              << std::endl;
+        yarp::os::Time::delay(0.2);
+
+    }
+    rightArm.SetJointVel(jointNumber, 0);
 
     return 0;
 }
