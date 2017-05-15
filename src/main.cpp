@@ -82,7 +82,7 @@ int main()
 
     double T=0.01;
     int loops = 2/T;
-    double vel = 1;
+    double vel = 2;
     int jointNumber = 3;
 
     double lastJointPos = rightArm.GetJoint(jointNumber);
