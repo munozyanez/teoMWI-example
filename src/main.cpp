@@ -132,9 +132,10 @@ int main()
     rightArm.SetJointVel(jointNumber, 0);
 
 
-    for(int i=0; i<20; i++)
+    for(int i=0; i<30; i++)
     {
         vel=(double)i/10;
+        rightArm.SetControlMode(2);
         rightArm.SetJointVel(jointNumber, vel);
 
         std::cout << i << ","
@@ -145,9 +146,10 @@ int main()
 
     }
 
-    for(int i=0; i<20; i++)
+    for(int i=0; i<30; i++)
     {
         vel=(double)i/10;
+        rightArm.SetControlMode(2);
         rightArm.SetJointVel(jointNumber, -vel);
 
         std::cout << i << ","
