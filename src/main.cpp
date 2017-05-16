@@ -138,7 +138,7 @@ int main()
 
     for(int i=0; i<30; i++)
     {
-        vel=(double)i/10;
+        vel=(double)i/5;
         rightArm.SetControlMode(2);
         rightArm.SetJointVel(jointNumber, vel);
 
